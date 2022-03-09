@@ -13,6 +13,7 @@ interface IMy721Token {
     function tokenURI(uint256 tokenId) external returns (string memory);
 }
 
+// interface to call merkletree.sol contract from this contract
 interface Imerkletree {
     function compute(address sender, address receiver, uint256 tokenId, string memory tokenURI) external returns(bytes32);
 }
@@ -32,6 +33,7 @@ contract MyNFT is ERC721URIStorage {
         tokURI = IMy721Token(_add).tokenURI(_tokenId);
     }
 
+    // _addr is merkletree.sol contracts address
     function callmerkletree(address _addr, address _sender, address _receiver, uint256 _tokenId, string memory _tokenURI) external payable {
         root = Imerkletree(_addr).compute(_sender,_receiver,_tokenId,_tokenURI);
     }
